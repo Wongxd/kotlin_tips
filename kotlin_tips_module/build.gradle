@@ -3,6 +3,34 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
 group = 'com.github.wongxd'
 
+
+//读取Git commit number
+def getGitCommitNumber() {
+    return 'git rev-list HEAD --first-parent --count'.execute().text.trim().toInteger()
+}
+
+
+//读取Git Tag
+def getGitTag() {
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'describe', '--tags'
+            standardOutput = stdout
+        }
+        return stdout.toString().trim()
+    }
+    catch (ignored) {
+        return "1.0.0"
+    }
+}
+
+
+//读取Git日志
+def getGitVersionInfo() {
+    return 'git rev-parse --short HEAD'.execute().text.trim()
+}
+
 android {
 
     compileSdkVersion 28
@@ -10,8 +38,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 1
-        versionName "0.0.1"
+        versionCode getGitCommitNumber()
+        versionName "0.0.3"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
