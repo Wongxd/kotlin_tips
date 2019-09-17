@@ -1,6 +1,7 @@
-package io.wongxd.kotlin_tips
+package io.wongxd.common
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
@@ -19,21 +20,15 @@ import android.widget.Toast
  */
 class EasyToast private constructor(private val builder: Builder) {
 
-    private var context: Context? = null
+    private val context: Context? = null
     private var toast: Toast? = null
     private var tv: TextView? = null
 
-    fun init(context: Context?) {
-        this.context = context?.applicationContext
-    }
-
     fun show(resId: Int) {
-        show(context?.getString(resId) ?: "")
+        show(context?.getString(resId))
     }
 
     fun show(message: String?, vararg any: Any) {
-        context ?: throw IllegalStateException("You must call EasyToast#init(context) first.")
-
         if (TextUtils.isEmpty(message)) {
             return
         }
@@ -84,29 +79,31 @@ class EasyToast private constructor(private val builder: Builder) {
     companion object {
 
         internal val mainHandler by lazy { return@lazy Handler(Looper.getMainLooper()) }
+
+        @SuppressLint("StaticFieldLeak")
+        lateinit var ctx: Context
+
+        fun init(app: Application) {
+            ctx = app
+        }
+
         /**
          * 默认提供的Toast实例，在首次使用时进行加载。
          */
-        val DEFAULT: EasyToast by lazy {
-            return@lazy newBuilder()
-                .build()
+        val DEFAULT: EasyToast by lazy { return@lazy newBuilder().build() }
+
+        fun newBuilder(): Builder {
+            return Builder(true, 0, 0)
         }
 
-        private fun newBuilder(): Builder {
-            return Builder(null, true, 0, 0)
-        }
-
-        fun newBuilder(ctx: Context, layoutId: Int, tvId: Int): Builder {
-            return Builder(ctx, false, layoutId, tvId)
+        fun newBuilder(layoutId: Int, tvId: Int): Builder {
+            return Builder(false, layoutId, tvId)
         }
     }
 
-    class Builder(
-        private var ctx: Context?,
-        internal var isDefault: Boolean,
-        internal var layoutId: Int,
-        internal var tvId: Int
-    ) {
+    class Builder(internal var isDefault: Boolean,
+                  internal var layoutId: Int,
+                  internal var tvId: Int) {
 
         internal var duration: Int = Toast.LENGTH_SHORT
         internal var gravity: Int = 0
@@ -125,9 +122,8 @@ class EasyToast private constructor(private val builder: Builder) {
             return this
         }
 
-
         fun build(): EasyToast {
-            return EasyToast(this).apply { init(ctx) }
+            return EasyToast(this)
         }
     }
 }
