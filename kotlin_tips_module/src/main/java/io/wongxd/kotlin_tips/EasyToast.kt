@@ -1,4 +1,4 @@
-package io.wongxd.common
+package io.wongxd.kotlin_tips
 
 import android.annotation.SuppressLint
 import android.app.Application
