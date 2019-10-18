@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
+import io.wongxd.kotlin_tips.startAty
 import io.wongxd.kt_dsl.rv.render.linear
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             renderItem<HeaderItem> {
                 res(R.layout.item_header)
                 onBind {
-
+                    containerView.setOnClickListener { startAty<AtyClock>() }
                 }
             }
 
