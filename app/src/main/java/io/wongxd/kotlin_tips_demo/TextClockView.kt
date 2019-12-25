@@ -1,4 +1,4 @@
-package io.wongxd.ktolin_tips_demo
+package io.wongxd.kotlin_tips_demo
 
 import android.animation.ValueAnimator
 import android.content.Context

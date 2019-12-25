@@ -1,4 +1,4 @@
-package io.wongxd.ktolin_tips_demo
+package io.wongxd.kotlin_tips_demo
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

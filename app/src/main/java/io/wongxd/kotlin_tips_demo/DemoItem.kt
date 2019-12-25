@@ -1,4 +1,4 @@
-package io.wongxd.ktolin_tips_demo
+package io.wongxd.kotlin_tips_demo
 
 import io.wongxd.kt_dsl.rv.prepare_data.Differ
 import io.wongxd.kt_dsl.rv.render.RvRenderItem

@@ -23,12 +23,23 @@ data class UpdateInfo(
     var downloadUrl: String? = null
 )
 
+interface UpdateUtilOnDownloadListener {
+
+    fun onStart(downloadId: Long)
+
+    fun onDownloading(downloadId: Long, progress: Int)
+
+    fun onSuccess(downloadId: Long)
+
+    fun onCancel(downloadId: Long)
+
+}
 
 class UpdateUtil {
 
     private lateinit var me: Context
     private lateinit var packageName: String
-    private var onDownloadListener: OnDownloadListener? = null
+    private var onDownloadListener: UpdateUtilOnDownloadListener? = null
 
     private var downloadManager: DownloadManager? = null
     private var downloadId: Long = 0
@@ -254,26 +265,15 @@ class UpdateUtil {
         }
     }
 
-    fun getOnDownloadListener(): OnDownloadListener? {
+    fun getOnDownloadListener(): UpdateUtilOnDownloadListener? {
         return onDownloadListener
     }
 
-    fun setOnDownloadListener(onDownloadListener: OnDownloadListener): UpdateUtil {
+    fun setOnDownloadListener(onDownloadListener: UpdateUtilOnDownloadListener): UpdateUtil {
         this.onDownloadListener = onDownloadListener
         return this
     }
 
-    interface OnDownloadListener {
-
-        fun onStart(downloadId: Long)
-
-        fun onDownloading(downloadId: Long, progress: Int)
-
-        fun onSuccess(downloadId: Long)
-
-        fun onCancel(downloadId: Long)
-
-    }
 
     interface OnDownloadingListener
 

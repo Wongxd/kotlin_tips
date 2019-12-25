@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools" package="io.wongxd.ktolin_tips_demo">
+          xmlns:tools="http://schemas.android.com/tools" package="io.wongxd.kotlin_tips_demo">
+
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
             android:allowBackup="true"
@@ -9,14 +15,24 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="io.wongxd.ktolin_tips_demo.MainActivity">
+
+<!--        <provider android:name="android.support.v4.content.FileProvider"-->
+<!--                  android:authorities="${applicationId}.fileProvider"-->
+<!--                  android:grantUriPermissions="true"-->
+<!--                  android:exported="false">-->
+<!--            <meta-data-->
+<!--                    android:name="android.support.FILE_PROVIDER_PATHS"-->
+<!--                    android:resource="@xml/file_path"/>-->
+<!--        </provider>-->
+
+        <activity android:name="io.wongxd.kotlin_tips_demo.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".AtyClock"/>
+        <activity android:name="io.wongxd.kotlin_tips_demo.AtyClock"/>
     </application>
 
 </manifest>
