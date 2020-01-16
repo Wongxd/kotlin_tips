@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                                     "4.「关于」还加入了GitHub地址，情怀+1s\n" +
                                     "5.全新的底层适配框架，优化更多机型"
                             ver = "v2.5"
-                            downloadUrl = "http://paywhere.kongzue.com/downloads/paywhere.apk"
+                            downloadUrl = "https://cfd0dc8083df707f9f543c67398954b6.dd.cdntips.com/imtt.dd.qq.com/16891/apk/9298AA981ABAABC9C0C8309DDA40322B.apk?mkey=5e2029a2ded1cffc&f=0ce9&fsname=com.tencent.qqmusic_9.8.0.9_1260.apk&csr=1bbd&cip=222.209.233.9&proto=https"
                         }
 
                         val updateUtil = UpdateUtil(this@MainActivity, BuildConfig.APPLICATION_ID)
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
 
                         })
 
-                        updateUtil.showNormalUpdateDialog(updateInfo)
+                        updateUtil.showNormalUpdateDialog(updateInfo,isForced = true)
                     }
 
                 }

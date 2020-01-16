@@ -316,7 +316,7 @@ class DealImg private constructor(val ctx: Context) {
 
 
     fun getUriFromFile(ctx: Context, file: File): Uri {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Intent.FLAG_GRANT_READ_URI_PERMISSION
             FileProvider.getUriForFile(ctx, ctx.applicationContext.packageName + ".fileProvider", file)
         } else {
@@ -356,7 +356,7 @@ class DealImg private constructor(val ctx: Context) {
             }
         }
 
-        return data;
+        return data
     }
 
 
