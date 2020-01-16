@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
@@ -17,21 +16,32 @@ import android.widget.Toast
  * DATE: 2018/5/9
  *
  * AUTHOR: haoge
+ *
+ * update:2020/1/16 by wongxd
  */
 class EasyToast private constructor(private val builder: Builder) {
 
     private val context: Context? = null
     private var toast: Toast? = null
     private var tv: TextView? = null
+    private var lastShowTime = 0L
+
 
     fun show(resId: Int) {
         show(context?.getString(resId))
     }
 
     fun show(message: String?, vararg any: Any) {
-        if (TextUtils.isEmpty(message)) {
+        if (message.isNullOrBlank()) {
             return
         }
+
+        val showLongTime = if (builder.duration == Toast.LENGTH_SHORT) 2000 else 3500
+        val thisShowTime = System.currentTimeMillis()
+        if (thisShowTime - lastShowTime > showLongTime) {
+            return
+        }
+        lastShowTime = thisShowTime
 
         var result = message as String
         if (any.isNotEmpty()) {
@@ -101,9 +111,11 @@ class EasyToast private constructor(private val builder: Builder) {
         }
     }
 
-    class Builder(internal var isDefault: Boolean,
-                  internal var layoutId: Int,
-                  internal var tvId: Int) {
+    class Builder(
+        internal var isDefault: Boolean,
+        internal var layoutId: Int,
+        internal var tvId: Int
+    ) {
 
         internal var duration: Int = Toast.LENGTH_SHORT
         internal var gravity: Int = 0

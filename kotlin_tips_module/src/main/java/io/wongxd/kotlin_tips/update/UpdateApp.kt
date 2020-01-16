@@ -136,22 +136,20 @@ class UpdateUtil {
     }
 
     private fun doGetProgress() {
-        if (downloadProgressTimer != null) downloadProgressTimer?.cancel()
+        downloadProgressTimer?.cancel()
         downloadProgressTimer = Timer()
         downloadProgressTimer?.schedule(object : TimerTask() {
             override fun run() {
                 val progress = getProgress(downloadId)
                 log(progress)
-                if (onDownloadListener != null)
-                    onDownloadListener?.onDownloading(downloadId, progress)
+                onDownloadListener?.onDownloading(downloadId, progress)
                 if (progress != 100) {
-                    if (progressDialog != null) progressDialog?.progress = progress
+                    progressDialog?.progress = progress
                 } else {
                     downloadProgressTimer?.cancel()
-                    if (progressDialog != null) progressDialog?.dismiss()
+                    progressDialog?.dismiss()
                     isDownloadCompleted = true
                     installApk(mCtx)
-
                     if (onDownloadListener != null) onDownloadListener?.onSuccess(downloadId)
                     return
                 }
